@@ -1,5 +1,5 @@
 const express = require("express");
-const uuid = require("uuid/v4");
+const uuid = require("uuid");
 const { isWebUri } = require("valid-url");
 const logger = require("../logger");
 const store = require("../store");
@@ -19,6 +19,7 @@ bookmarksRouter
         return res.status(400).send(`'${field}' is required`);
       }
     }
+
     const { title, url, description, rating } = req.body;
 
     if (!Number.isInteger(rating) || rating < 0 || rating > 5) {
