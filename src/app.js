@@ -6,6 +6,9 @@ const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 const bookmarksRouterServer = require("./bookmarks-server-store/bookmarks-router");
 
+const validateBearerToken = require("./validate-bearer-token");
+const errorHandler = require("./error-handler");
+
 const app = express();
 
 app.use(
@@ -17,6 +20,12 @@ app.use(helmet());
 app.use(cors());
 app.use(validateBearerToken);
 
-app.use();
+app.use(bookmarksRouterServer);
+
+app.get("/", (req, res) => {
+  res.send("Testing router");
+});
+
+app.use(errorHandler);
 
 module.exports = app;
